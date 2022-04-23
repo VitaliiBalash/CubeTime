@@ -40,6 +40,7 @@
 		23E81E73275D8DEA00B741E3 /* AboutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E81E72275D8DEA00B741E3 /* AboutSettings.swift */; };
 		23EB8A1E2779B6D3000F6663 /* TimeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB8A1D2779B6D3000F6663 /* TimeBar.swift */; };
 		7D2B805E279422BD0006AEDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2B805D279422BD0006AEDD /* AppDelegate.swift */; };
+		7D35B69D2813E58B00BFAEA2 /* libzstd in Frameworks */ = {isa = PBXBuildFile; productRef = 7D35B69C2813E58B00BFAEA2 /* libzstd */; };
 		7D3D3154278D3CA400BBDF55 /* TimerTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D3153278D3CA400BBDF55 /* TimerTouchView.swift */; };
 		7D5521DC2799657300B418BE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5521DB2799657300B418BE /* Security.framework */; };
 		7D5521DE279965B600B418BE /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5521DD2799657B00B418BE /* libiconv.tbd */; };
@@ -146,6 +147,7 @@
 			files = (
 				230CB292279C07C7008E475E /* SVGKitSwift in Frameworks */,
 				230CB290279C07C7008E475E /* SVGKit in Frameworks */,
+				7D35B69D2813E58B00BFAEA2 /* libzstd in Frameworks */,
 				7D5521DE279965B600B418BE /* libiconv.tbd in Frameworks */,
 				7D5521DC2799657300B418BE /* Security.framework in Frameworks */,
 			);
@@ -355,6 +357,7 @@
 			packageProductDependencies = (
 				230CB28F279C07C7008E475E /* SVGKit */,
 				230CB291279C07C7008E475E /* SVGKitSwift */,
+				7D35B69C2813E58B00BFAEA2 /* libzstd */,
 			);
 			productName = txmer;
 			productReference = 23DE3BD7274DDBE200254D29 /* CubeTime.app */;
@@ -430,6 +433,7 @@
 			mainGroup = 23DE3BCE274DDBE200254D29;
 			packageReferences = (
 				230CB28E279C07C7008E475E /* XCRemoteSwiftPackageReference "SVGKit" */,
+				7D35B69B2813DC8A00BFAEA2 /* XCRemoteSwiftPackageReference "zstd" */,
 			);
 			productRefGroup = 23DE3BD8274DDBE200254D29 /* Products */;
 			projectDirPath = "";
@@ -921,6 +925,14 @@
 				kind = branch;
 			};
 		};
+		7D35B69B2813DC8A00BFAEA2 /* XCRemoteSwiftPackageReference "zstd" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/zstd";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.5.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -933,6 +945,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 230CB28E279C07C7008E475E /* XCRemoteSwiftPackageReference "SVGKit" */;
 			productName = SVGKitSwift;
+		};
+		7D35B69C2813E58B00BFAEA2 /* libzstd */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D35B69B2813DC8A00BFAEA2 /* XCRemoteSwiftPackageReference "zstd" */;
+			productName = libzstd;
 		};
 /* End XCSwiftPackageProductDependency section */
 

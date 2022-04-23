@@ -2,8 +2,9 @@ import Foundation
 import SwiftUI
 import UIKit
 import Combine
+import UniformTypeIdentifiers
 
-
+let cubetimeUTType = UTType("com.cubetime.cubetime.cubetimexport")!
 
 extension CGSize {
     public init(_ svgdimen: OrgWorldcubeassociationTnoodleSvgliteDimension) {
