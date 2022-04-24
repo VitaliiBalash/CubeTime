@@ -3,6 +3,7 @@ import SwiftUI
 struct BottomTabsView: View {
     @Binding var hide: Bool
     @Binding var currentTab: Tab
+    @Binding var currentSettingsCard: SettingsCardInfo?
     
     var namespace: Namespace.ID
     
@@ -36,6 +37,7 @@ struct BottomTabsView: View {
                                 VStack {
                                     TabIconWithBar(
                                         currentTab: $currentTab,
+                                        currentSettingsCard: $currentSettingsCard,
                                         assignedTab: .timer,
                                         systemIconName: "stopwatch",
                                         systemIconNameSelected: "stopwatch.fill",
@@ -46,6 +48,7 @@ struct BottomTabsView: View {
                                     
                                     TabIconWithBar(
                                         currentTab: $currentTab,
+                                        currentSettingsCard: $currentSettingsCard,
                                         assignedTab: .solves,
                                         systemIconName: "hourglass.bottomhalf.filled",
                                         systemIconNameSelected: "hourglass.tophalf.filled",
@@ -56,6 +59,7 @@ struct BottomTabsView: View {
                                     
                                     TabIconWithBar(
                                         currentTab: $currentTab,
+                                        currentSettingsCard: $currentSettingsCard,
                                         assignedTab: .stats,
                                         systemIconName: "chart.pie",
                                         systemIconNameSelected: "chart.pie.fill",
@@ -67,6 +71,7 @@ struct BottomTabsView: View {
                                     
                                     TabIconWithBar(
                                         currentTab: $currentTab,
+                                        currentSettingsCard: $currentSettingsCard,
                                         assignedTab: .sessions,
                                         systemIconName: "line.3.horizontal.circle",
                                         systemIconNameSelected: "line.3.horizontal.circle.fill",
@@ -90,6 +95,7 @@ struct BottomTabsView: View {
                                 
                                 TabIcon(
                                     currentTab: $currentTab,
+                                    currentSettingsCard: $currentSettingsCard,
                                     assignedTab: .settings,
                                     systemIconName: "gearshape",
                                     systemIconNameSelected: "gearshape.fill"
@@ -138,6 +144,7 @@ struct BottomTabsView: View {
                                 HStack {
                                     TabIconWithBar(
                                         currentTab: $currentTab,
+                                        currentSettingsCard: $currentSettingsCard,
                                         assignedTab: .timer,
                                         systemIconName: "stopwatch",
                                         systemIconNameSelected: "stopwatch.fill",
@@ -148,6 +155,7 @@ struct BottomTabsView: View {
                                     
                                     TabIconWithBar(
                                         currentTab: $currentTab,
+                                        currentSettingsCard: $currentSettingsCard,
                                         assignedTab: .solves,
                                         systemIconName: "hourglass.bottomhalf.filled",
                                         systemIconNameSelected: "hourglass.tophalf.filled",
@@ -158,6 +166,7 @@ struct BottomTabsView: View {
                                     
                                     TabIconWithBar(
                                         currentTab: $currentTab,
+                                        currentSettingsCard: $currentSettingsCard,
                                         assignedTab: .stats,
                                         systemIconName: "chart.pie",
                                         systemIconNameSelected: "chart.pie.fill",
@@ -169,6 +178,7 @@ struct BottomTabsView: View {
                                     
                                     TabIconWithBar(
                                         currentTab: $currentTab,
+                                        currentSettingsCard: $currentSettingsCard,
                                         assignedTab: .sessions,
                                         systemIconName: "line.3.horizontal.circle",
                                         systemIconNameSelected: "line.3.horizontal.circle.fill",
@@ -192,6 +202,7 @@ struct BottomTabsView: View {
                                 
                                 TabIcon(
                                     currentTab: $currentTab,
+                                    currentSettingsCard: $currentSettingsCard,
                                     assignedTab: .settings,
                                     systemIconName: "gearshape",
                                     systemIconNameSelected: "gearshape.fill"

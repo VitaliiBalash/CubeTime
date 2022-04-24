@@ -15,6 +15,7 @@ class TabRouter: ObservableObject {
 
 struct TabIconWithBar: View {
     @Binding var currentTab: Tab
+    @Binding var currentSettingsCard: SettingsCardInfo?
     let assignedTab: Tab
     let systemIconName: String
     var systemIconNameSelected: String
@@ -39,7 +40,7 @@ struct TabIconWithBar: View {
                 }
             }
             
-            TabIcon(currentTab: $currentTab, assignedTab: assignedTab, systemIconName: systemIconName, systemIconNameSelected: systemIconNameSelected)
+            TabIcon(currentTab: $currentTab, currentSettingsCard: $currentSettingsCard, assignedTab: assignedTab, systemIconName: systemIconName, systemIconNameSelected: systemIconNameSelected)
         }
     }
 }
@@ -47,6 +48,7 @@ struct TabIconWithBar: View {
 
 struct TabIcon: View {
     @Binding var currentTab: Tab
+    @Binding var currentSettingsCard: SettingsCardInfo?
     let assignedTab: Tab
     let systemIconName: String
     var systemIconNameSelected: String
@@ -62,6 +64,10 @@ struct TabIcon: View {
             .onTapGesture {
                 if currentTab != assignedTab {
                     currentTab = assignedTab
+                } else if currentTab == .settings {
+                    withAnimation(.spring(response: 0.5)) {
+                        currentSettingsCard = nil
+                    }
                 }
             }
     }
@@ -82,6 +88,8 @@ struct MainTabsView: View {
     @State var currentSession: Sessions
     
     @State var showUpdates: Bool = false
+    
+    @State var currentCard: SettingsCardInfo?
     
     //    var shortcutItem: UIApplicationShortcutItem?
     
@@ -162,11 +170,11 @@ struct MainTabsView: View {
                             
                         }
                 case .settings:
-                    SettingsView(showOnboarding: $showOnboarding)
+                    SettingsView(currentCard: $currentCard, showOnboarding: $showOnboarding)
                         .environmentObject(stopWatchManager)
                 }
                 
-                BottomTabsView(hide: $hideTabBar, currentTab: $tabRouter.currentTab, namespace: namespace)
+                BottomTabsView(hide: $hideTabBar, currentTab: $tabRouter.currentTab, currentSettingsCard: $currentCard, namespace: namespace)
                     .zIndex(1)
                     .ignoresSafeArea(.keyboard)
             }

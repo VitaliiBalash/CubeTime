@@ -15,7 +15,7 @@ struct AnimatingFontSizeV2: AnimatableModifier {
 }
 
 struct SettingsView: View {
-    @State var currentCard: SettingsCardInfo?
+    @Binding var currentCard: SettingsCardInfo?
     //    @Binding var hideTabBar: Bool
     @Environment(\.colorScheme) var colourScheme
     @Binding var showOnboarding: Bool
