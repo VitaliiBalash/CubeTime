@@ -5,6 +5,7 @@ struct ImportExportSettingsView: View {
     @Environment(\.colorScheme) var colourScheme
     @AppStorage(asKeys.accentColour.rawValue) private var accentColour: Color = .indigo
     @AppStorage(asKeys.gradientSelected.rawValue) private var gradientSelected: Int = 6
+    @AppStorage(gsKeys.compressionStrength.rawValue) private var compressionStrength: Int = 11
     @FetchRequest(entity: Sessions.entity(), sortDescriptors: []) var sessions: FetchedResults<Sessions>
     
     // TODO make enum
@@ -88,15 +89,16 @@ struct ImportExportSettingsView: View {
                                 "data": sessions.map { session -> [String: Any] in
                                     let keys = Array(session.entity.attributesByName.keys)
                                     var dict = session.dictionaryWithValues(forKeys: keys)
-                                    dict["id"] = String(describing: session.objectID)
+                                    dict["id"] = session.objectID.uriRepresentation().absoluteString
                                     if let session = session as? CompSimSession {
                                         dict["solvegroups"] = (session.solvegroups!.array as! [CompSimSolveGroup]).map { solvegroup -> [String: Any] in
                                             let keys = Array(solvegroup.entity.attributesByName.keys)
                                             var dict = solvegroup.dictionaryWithValues(forKeys: keys)
+                                            dict["id"] = solvegroup.objectID.uriRepresentation().absoluteString
                                             dict["solves"] = (solvegroup.solves!.array as! [Solves]).map { solve -> [String: Any] in
                                                 let keys = Array(solve.entity.attributesByName.keys)
                                                 var dict = solve.dictionaryWithValues(forKeys: keys)
-                                                // Someone please tell me if you can use a Date extension instead!
+                                                dict["id"] = solve.objectID.uriRepresentation().absoluteString
                                                 dict["date"] = Int(solve.date!.timeIntervalSince1970 * 1000)
                                                 return dict
                                             }
@@ -106,7 +108,8 @@ struct ImportExportSettingsView: View {
                                     dict["solves"] = (session.solves!.allObjects as! [Solves]).map { solve -> [String: Any] in
                                         let keys = Array(solve.entity.attributesByName.keys)
                                         var dict = solve.dictionaryWithValues(forKeys: keys)
-                                        // Someone please tell me if you can use a Date extension instead!
+                                        dict["id"] = solve.objectID.uriRepresentation().absoluteString
+                                        // Someone please tell me if you can use a Date extension instead, so dict["date"] = solve.date!
                                         dict["date"] = Int(solve.date!.timeIntervalSince1970 * 1000)
                                         return dict
                                     }
@@ -116,7 +119,7 @@ struct ImportExportSettingsView: View {
                              
                              
                              
-                             var jsondata = try! JSONSerialization.data(withJSONObject: dict, options: [])
+                             let jsondata = try! JSONSerialization.data(withJSONObject: dict, options: [])
                              
                              NSLog(String(data: jsondata, encoding: .utf8)!)
                              
@@ -124,7 +127,7 @@ struct ImportExportSettingsView: View {
                                  let dstSize = ZSTD_compressBound(jsondata.count)
                                  let compressedptr = UnsafeMutableRawPointer.allocate(byteCount: dstSize, alignment: 1)
                                  
-                                 let compressedSize = ZSTD_compress(compressedptr, dstSize, ptr.baseAddress, ptr.count, 11)
+                                 let compressedSize = ZSTD_compress(compressedptr, dstSize, ptr.baseAddress, ptr.count, Int32(compressionStrength))
                                  
                                  let compressedData = Data(bytesNoCopy: compressedptr, count: compressedSize, deallocator: .none)
                                  

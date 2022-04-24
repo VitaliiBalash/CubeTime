@@ -8,6 +8,7 @@ enum ProjectLicense {
     case svgkit
     case icons
     case recursivefont
+    case zstd
     case privacypolicy
 }
 
@@ -30,6 +31,8 @@ struct LicensePopUpView: View {
                 CubingIconsLicense()
             case .recursivefont:
                 RecursiveLicense()
+            case .zstd:
+                ZSTDLicense()
             case .privacypolicy:
                 PrivacyPolicy()
             default:
@@ -75,6 +78,10 @@ struct LicensesPopUpView: View {
                     }
                     Button("Recursive Font") {
                         projectLicense = .recursivefont
+                        showLicense = true
+                    }
+                    Button("ZSTD") {
+                        projectLicense = .zstd
                         showLicense = true
                     }
                     Button("Privacy Policy") {

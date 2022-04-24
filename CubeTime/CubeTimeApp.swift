@@ -47,7 +47,10 @@ struct CubeTime: App {
                 gsKeys.displayDP.rawValue: 3,
                 
                 // colours
-                asKeys.graphGlow.rawValue: true
+                asKeys.graphGlow.rawValue: true,
+                
+                // advanced
+                gsKeys.compressionStrength.rawValue: 11
             ]
         )
     }

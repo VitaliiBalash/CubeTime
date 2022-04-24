@@ -55,7 +55,7 @@ extension UIColor {
 
 extension Color: RawRepresentable {
     public typealias RawValue = String
-    init(_ hex: UInt) {
+    @inline(__always) init(_ hex: UInt) {
         self.init(
             red: Double((hex >> 16) & 0xff) / 255,
             green: Double((hex >> 08) & 0xff) / 255,
