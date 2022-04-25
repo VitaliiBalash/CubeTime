@@ -67,7 +67,7 @@ struct SettingsPicker<SelectionValue, Content>: View where SelectionValue: Hasha
     
     var body: some View {
         HStack {
-            Text("Timer Update")
+            Text(text)
                 .font(.system(size: 17, weight: .medium))
             Spacer()
             Picker("", selection: _selection) {
@@ -76,6 +76,22 @@ struct SettingsPicker<SelectionValue, Content>: View where SelectionValue: Hasha
             .pickerStyle(.menu)
             .accentColor(accentColour)
             .font(.system(size: 17, weight: .regular))
+        }
+    }
+}
+
+struct SettingsAction: View {
+    let text: String
+    let buttontext: String
+    let role: ButtonRole?
+    let action: () -> Void
+    var body: some View {
+        HStack {
+            Text(text)
+                .font(.system(size: 17, weight: .medium))
+            Spacer()
+            Button(buttontext, role: role, action: action)
+                .buttonStyle(.bordered)
         }
     }
 }

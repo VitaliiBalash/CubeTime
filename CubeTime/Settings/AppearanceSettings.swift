@@ -8,7 +8,7 @@ struct settingsBlocks: ViewModifier {
     }
 }
 
-enum asKeys: String {
+enum asKeys: String, CaseIterable {
     case accentColour, overrideDM, dmBool, staticGradient, gradientSelected, graphGlow
 }
 

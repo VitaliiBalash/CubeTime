@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-enum gsKeys: String {
+enum gsKeys: String, CaseIterable {
     case inspection, freeze, timeDpWhenRunning, hapBool, hapType, gestureDistance, displayDP, showScramble, showStats, scrambleSize, inspectionCountsDown, compressionStrength
 }
 
@@ -87,17 +87,10 @@ struct GeneralSettingsView: View {
             
             SettingsGroup(name: "Timer Tools", iconname: "wrench") {
                 SettingsToggle(isOn: $showScramble, text: "Show draw scramble on timer")
-                .onChange(of: inspectionTime) { newValue in
-                    stopWatchManager.inspectionEnabled = newValue
-                }
                 
                 Divider()
                 
-                
                 SettingsToggle(isOn: $showStats, text: "Show stats on timer")
-                .onChange(of: inspectionTime) { newValue in
-                    stopWatchManager.inspectionEnabled = newValue
-                }
                 
                 Text("Show scramble/statistics on the timer screen.")
                     .font(.system(size: 13, weight: .medium))
@@ -109,7 +102,6 @@ struct GeneralSettingsView: View {
             SettingsGroup(name: "Accessibility", iconname: "eye") {
                 SettingsToggle(isOn: $hapticFeedback, text: "Haptic Feedback")
                 .onChange(of: hapticFeedback) { newValue in
-                    
                     stopWatchManager.hapticEnabled = newValue
                     stopWatchManager.calculateFeedbackStyle()
                 }
@@ -176,6 +168,19 @@ struct GeneralSettingsView: View {
                         .font(.system(size: 17, weight: .medium))
                     Text(String(compressionStrength))
                 }
+                
+                SettingsAction(text: "Reset all general settings", buttontext: "Reset", role: .destructive, action: {
+                    let defs = UserDefaults.standard
+                    for key in gsKeys.allCases.map({$0.rawValue}) {
+                        defs.removeObject(forKey: key)
+                    }
+                    stopWatchManager.inspectionEnabled = defs.bool(forKey: gsKeys.inspection.rawValue)
+                    stopWatchManager.insCountDown = defs.bool(forKey: gsKeys.inspectionCountsDown.rawValue)
+                    stopWatchManager.timeDP = defs.integer(forKey: gsKeys.timeDpWhenRunning.rawValue)
+                    stopWatchManager.hapticEnabled = defs.bool(forKey: gsKeys.hapBool.rawValue)
+                    stopWatchManager.hapticType = defs.integer(forKey: gsKeys.hapType.rawValue)
+                    stopWatchManager.calculateFeedbackStyle()
+                })
             }
         }
         .padding(.horizontal)

@@ -20,6 +20,8 @@ struct SettingsView: View {
     @Environment(\.colorScheme) var colourScheme
     @Binding var showOnboarding: Bool
     @Namespace var namespace
+    @State var deleteConfirm = false
+    @EnvironmentObject var stopWatchManager: StopWatchManager
     
     
     let settingsColumns = [GridItem(spacing: 16), GridItem()]
@@ -44,6 +46,30 @@ struct SettingsView: View {
                         Spacer()
                     }
                     .navigationBarTitle("Settings")
+                    .toolbar {
+                        Button (role: .destructive) {
+                            deleteConfirm = true
+                        } label: {
+                            Image(systemName: "trash")
+                                .foregroundColor(Color(uiColor: .systemRed))
+                        }
+                        .confirmationDialog("Really reset all settings? Your solves and sessions will be kept.", isPresented: $deleteConfirm, titleVisibility: .visible) {
+                            Button("Yes", role: .destructive) {
+                                let defs = UserDefaults.standard
+                                for key in gsKeys.allCases.map({$0.rawValue}) + asKeys.allCases.map({$0.rawValue}) {
+                                    defs.removeObject(forKey: key)
+                                }
+                                stopWatchManager.inspectionEnabled = defs.bool(forKey: gsKeys.inspection.rawValue)
+                                stopWatchManager.insCountDown = defs.bool(forKey: gsKeys.inspectionCountsDown.rawValue)
+                                stopWatchManager.timeDP = defs.integer(forKey: gsKeys.timeDpWhenRunning.rawValue)
+                                stopWatchManager.hapticEnabled = defs.bool(forKey: gsKeys.hapBool.rawValue)
+                                stopWatchManager.hapticType = defs.integer(forKey: gsKeys.hapType.rawValue)
+                                stopWatchManager.calculateFeedbackStyle()
+                                
+                    
+                            }
+                        }
+                    }
                     
                     .safeAreaInset(edge: .bottom, spacing: 0) {RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.clear).frame(height: 50).padding(.top).padding(.bottom, SetValues.hasBottomBar ? 0 : nil)}
                     .padding(.vertical, 6)
