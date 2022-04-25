@@ -1,13 +1,6 @@
 import SwiftUI
 
 
-struct settingsBlocks: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous)).shadow(color: Color.black.opacity(0.06), radius: 6, x: 0, y: 3))
-    }
-}
-
 enum asKeys: String, CaseIterable {
     case accentColour, overrideDM, dmBool, staticGradient, gradientSelected, graphGlow
 }
