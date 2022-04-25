@@ -64,10 +64,7 @@ struct TabIcon: View {
             .onTapGesture {
                 if currentTab != assignedTab {
                     currentTab = assignedTab
-                } else if currentTab == .settings {
-                    withAnimation(.spring(response: 0.5)) {
-                        currentSettingsCard = nil
-                    }
+                    currentSettingsCard = nil
                 }
             }
     }
