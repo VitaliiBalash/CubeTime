@@ -189,7 +189,7 @@ struct TimerView: View {
                     if targetFocused || manualInputFocused /*|| (!manualInputFocused && showInputField)*/ {
 //                        Color.clear.contentShape(Path(CGRect(origin: .zero, size: geometry.size)))
                         /// ^ this receives tap gesture but gesture is transferred to timertouchview below...
-                        Color.clear
+                        Color.white.opacity(0.000001) // workaround for now
                             .onTapGesture {
                                 targetFocused = false
                                 manualInputFocused = false

@@ -53,8 +53,8 @@ struct SettingsView: View {
                             Image(systemName: "trash")
                                 .foregroundColor(Color(uiColor: .systemRed))
                         }
-                        .confirmationDialog("Really reset all settings? Your solves and sessions will be kept.", isPresented: $deleteConfirm, titleVisibility: .visible) {
-                            Button("Yes", role: .destructive) {
+                        .confirmationDialog("Are you sure you want to reset all settings? Your solves and sessions will be kept.", isPresented: $deleteConfirm, titleVisibility: .visible) {
+                            Button("Confirm Reset", role: .destructive) {
                                 let defs = UserDefaults.standard
                                 for key in gsKeys.allCases.map({$0.rawValue}) + asKeys.allCases.map({$0.rawValue}) {
                                     defs.removeObject(forKey: key)
